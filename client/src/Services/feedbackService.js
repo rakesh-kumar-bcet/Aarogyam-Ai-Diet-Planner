@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API = '/api/feedback';
+import API_BASE_URL from '../config/api';
+const API = `${API_BASE_URL}/api/feedback`;
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');

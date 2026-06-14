@@ -1,7 +1,8 @@
 // src/Services/dietService.js
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
-const BASE_URL = "/api/diet"; // use proxy in development and relative URL in production
+const BASE_URL = `${API_BASE_URL}/api/diet`;
 
 // Helper to get headers with JWT
 const getAuthHeaders = () => {

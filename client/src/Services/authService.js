@@ -1,7 +1,8 @@
 // src/Services/authService.js
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
-const BASE_URL = "/api/auth"; // use CRA proxy or relative URL
+const BASE_URL = `${API_BASE_URL}/api/auth`;
 
 /* =========================
    REGISTER USER

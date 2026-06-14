@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API = '/api/nutrenist'; // updated to match server endpoint
+import API_BASE_URL from '../config/api';
+const API = `${API_BASE_URL}/api/nutrenist`; // updated to match server endpoint
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');

@@ -1,13 +1,13 @@
+import { WS_BASE_URL } from '../config/api';
+
 const subscribers = new Map();
 let socket = null;
 let reconnectTimer = null;
 
 const getSocketUrl = () => {
   const token = localStorage.getItem('token');
-  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  const host = window.location.hostname;
-  const defaultPort = process.env.REACT_APP_WS_PORT || '5002';
-  const baseUrl = process.env.REACT_APP_WS_URL || `${protocol}://${host}:${defaultPort}/ws`;
+  const defaultUrl = `${WS_BASE_URL}/ws`;
+  const baseUrl = process.env.REACT_APP_WS_URL || defaultUrl;
   return `${baseUrl}?token=${encodeURIComponent(token || '')}`;
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 export default function ChatbotWidget({ user = null }) {
   const [open, setOpen] = useState(true);
@@ -24,7 +25,7 @@ export default function ChatbotWidget({ user = null }) {
 
     try {
       console.log('Chat send payload:', { message: userMessage, user });
-      const res = await axios.post('/api/chat', {
+      const res = await axios.post(`${API_BASE_URL}/api/chat`, {
         message: userMessage,
         user // may be null, backend should handle it
       }, { timeout: 20000 }); // 20s timeout

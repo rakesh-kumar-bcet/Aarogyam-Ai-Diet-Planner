@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
-const BASE_URL = "/api/admin";
+const BASE_URL = `${API_BASE_URL}/api/admin`;
 
 export default function NutritionistDirectory() {
   const navigate = useNavigate();

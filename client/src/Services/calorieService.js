@@ -1,8 +1,9 @@
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 export const logCalories = (meal, calories) => {
   return axios.post(
-    "/api/calories/log",
+    `${API_BASE_URL}/api/calories/log`,
     { meal, calories },
     {
       headers: {
@@ -13,7 +14,7 @@ export const logCalories = (meal, calories) => {
 };
 
 export const getCalorieLogs = () => {
-  return axios.get("/api/calories/logs", {
+  return axios.get(`${API_BASE_URL}/api/calories/logs`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }

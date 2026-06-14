@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import API_BASE_URL from "../config/api";
 import { getLastPlan } from "../Services/dietService";
 
 export default function DietPlan() {
@@ -75,7 +76,7 @@ export default function DietPlan() {
 
     try {
       const res = await axios.post(
-        "/api/diet/plan",
+        `${API_BASE_URL}/api/diet/plan`,
         {
           age: Number(form.age),
           weight: Number(form.weight),
