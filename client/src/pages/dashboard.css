@@ -1,0 +1,416 @@
+.dashboard-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top left, rgba(167, 243, 208, 0.32), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(236, 253, 245, 0.88), transparent 20%);
+}
+
+.dashboard-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dashboard-circle {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.18;
+  filter: blur(2px);
+  animation: float 18s ease-in-out infinite;
+}
+
+.dashboard-circle.circle-1 {
+  width: 180px;
+  height: 180px;
+  top: 12%;
+  left: -4%;
+  background: rgba(187, 247, 208, 0.38);
+}
+
+.dashboard-circle.circle-2 {
+  width: 172px;
+  height: 172px;
+  bottom: 20%;
+  right: 8%;
+  background: rgba(236, 253, 245, 0.45);
+}
+
+.dashboard-circle.circle-3 {
+  width: 120px;
+  height: 120px;
+  top: 32%;
+  right: 22%;
+  background: rgba(134, 239, 172, 0.34);
+}
+
+.dashboard-wave {
+  position: absolute;
+  top: 28%;
+  left: 5%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle at 30% 20%, rgba(34, 197, 94, 0.16), transparent 40%);
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 80% 55%, 55% 45%, 35% 65%, 0 50%);
+  opacity: 0.12;
+}
+
+.dashboard-grid-dot,
+.dashboard-network {
+  position: absolute;
+  opacity: 0.18;
+}
+
+.dashboard-grid-dot.dot-1 {
+  top: 14%;
+  left: 18%;
+  width: 12px;
+  height: 12px;
+  background: rgba(16, 185, 129, 0.35);
+  border-radius: 9999px;
+}
+
+.dashboard-grid-dot.dot-2 {
+  bottom: 22%;
+  right: 18%;
+  width: 10px;
+  height: 10px;
+  background: rgba(34, 197, 94, 0.4);
+  border-radius: 9999px;
+}
+
+.dashboard-network.network-1,
+.dashboard-network.network-2 {
+  width: 180px;
+  height: 180px;
+  border-radius: 9999px;
+  border: 1px dashed rgba(34, 197, 94, 0.25);
+}
+
+.dashboard-network.network-1 {
+  top: 45%;
+  left: 22%;
+}
+
+.dashboard-network.network-2 {
+  bottom: 18%;
+  right: 10%;
+}
+
+.dashboard-float-icon {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0.16;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dashboard-float-icon.icon-salad {
+  top: 10%;
+  left: 6%;
+}
+
+.dashboard-float-icon.icon-apple {
+  top: 14%;
+  right: 10%;
+}
+
+.dashboard-float-icon.icon-progress {
+  bottom: 18%;
+  left: 8%;
+}
+
+.dashboard-float-icon.icon-heartbeat {
+  bottom: 12%;
+  right: 14%;
+}
+
+.dashboard-float-icon.icon-ai {
+  top: 40%;
+  right: 6%;
+}
+
+.dashboard-navbar {
+  z-index: 50;
+  overflow: visible;
+}
+
+.dashboard-icon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  color: #166534;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-icon-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
+}
+
+.dashboard-badge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #22c55e;
+  color: white;
+  font-weight: 700;
+}
+
+.dashboard-profile-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-profile-card {
+  min-height: 460px;
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+  width: 100%;
+  border-radius: 9999px;
+}
+
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at center, rgba(167, 243, 208, 0.2), transparent 45%);
+}
+
+.hero-profile-image {
+  width: 340px;
+  height: 340px;
+  object-fit: cover;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.16);
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 640px) {
+  .hero-profile-card {
+    min-height: auto;
+  }
+  .hero-profile-image {
+    width: 160px;
+    height: 160px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  }
+  .dashboard-wave { width: 260px; height: 260px; left: 0; top: 18%; }
+  .dashboard-circle.circle-1, .dashboard-circle.circle-2, .dashboard-circle.circle-3 { opacity: 0.08; }
+}
+
+.hero-profile-icon {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.05);
+  font-size: 1rem;
+  opacity: 0.65;
+  color: rgba(20, 83, 45, 0.85);
+}
+
+.hero-profile-icon:hover {
+  transform: none;
+}
+
+.hero-frame-icon-salad {
+  top: -20px;
+  left: -20px;
+}
+
+.hero-frame-icon-apple {
+  top: -20px;
+  right: -20px;
+}
+
+.hero-frame-icon-progress {
+  bottom: -20px;
+  left: 16%;
+}
+
+.hero-frame-icon-heartbeat {
+  bottom: -20px;
+  right: 16%;
+}
+
+.hero-frame-icon-ai {
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.recommendation-card {
+  z-index: 10;
+}
+
+.stat-card,
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  background: white;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover,
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.1);
+}
+
+.stat-icon,
+.feature-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
+}
+
+.feature-action,
+.dashboard-primary-btn,
+.dashboard-secondary-btn,
+.dashboard-action-btn,
+.dashboard-action-btn-secondary,
+.dashboard-resolve-btn,
+.dashboard-toggle-btn {
+  border-radius: 1rem;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-primary-btn,
+.feature-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.2rem;
+  font-weight: 700;
+  background: #16a34a;
+  color: white;
+  border: 1px solid transparent;
+}
+
+.dashboard-primary-btn:hover,
+.feature-action:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+.dashboard-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.2rem;
+  font-weight: 700;
+  background: white;
+  color: #166534;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+
+.dashboard-secondary-btn:hover {
+  background: #ecfdf5;
+  transform: translateY(-1px);
+}
+
+.dashboard-action-btn,
+.dashboard-action-btn-secondary,
+.dashboard-resolve-btn,
+.dashboard-toggle-btn {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  font-weight: 700;
+}
+
+.dashboard-action-btn:hover,
+.dashboard-resolve-btn:hover,
+.dashboard-toggle-btn:hover {
+  transform: translateY(-1px);
+}
+
+.dashboard-action-btn-secondary {
+  background: #e2e8f0;
+  color: #1f2937;
+}
+
+.dashboard-textarea,
+.dashboard-input,
+.dashboard-select {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+  background: white;
+  color: #0f172a;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-textarea:focus,
+.dashboard-input:focus,
+.dashboard-select:focus {
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.dashboard-label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}

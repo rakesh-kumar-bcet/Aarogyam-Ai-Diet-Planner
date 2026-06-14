@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f8fb;
+  margin: 0;
+  padding: 0;
+}
+.container-custom {
+  max-width: 980px;
+  margin: 24px auto;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.card { padding: 12px; border-radius: 8px; border: 1px solid #e6e9ef; background: #fff; margin-bottom: 12px; }
+@media (max-width: 768px) {
+  .container-custom { margin: 8px; padding: 12px; }
+}
+
+/* ensure full width for small form cards */
+@media (max-width: 640px) {
+  .auth-card, .home-card {
+    margin: 0 12px;
+  }
+}
