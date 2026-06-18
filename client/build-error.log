@@ -1,0 +1,16 @@
+﻿
+> client@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Failed to compile.
+
+Syntax error: E:\ai diet planner\client\src\App.css Unclosed block (203:1)
+ [90m 201 | [39m[33m}[39m
+ [90m 202 | [39m
+[1m[31m>[39m[22m[90m 203 | [39m[36m@media[39m[36m [39m[36m(min-width: 992px)[39m [33m{[39m
+ [90m     | [39m[1m[31m^[39m[22m
+ [90m 204 | [39m  [33m.landing-main[39m [33m{[39m
+ [90m 205 | [39m    grid-template-columns[33m:[39m 1fr 1.1fr[33m;[39m
+
+

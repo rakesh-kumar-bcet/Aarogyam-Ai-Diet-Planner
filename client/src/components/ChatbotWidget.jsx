@@ -54,10 +54,10 @@ export default function ChatbotWidget({ user = null }) {
   return (
     <div className="fixed right-3 bottom-3 w-full max-w-xs sm:w-80 z-50">
       <div className="bg-white rounded-lg shadow-lg p-3 border">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex flex-wrap justify-between items-center gap-2 mb-2">
           <strong className="text-lg">Diet Chatbot</strong>
-          <div className="flex items-center">
-            {loading && <small className="mr-2 text-gray-500">Sending...</small>}
+          <div className="flex items-center gap-2">
+            {loading && <small className="text-gray-500">Sending...</small>}
             <button className="text-blue-500 hover:text-blue-700" onClick={() => setOpen(o => !o)}>
               {open ? 'Hide' : 'Open'}
             </button>
@@ -82,17 +82,17 @@ export default function ChatbotWidget({ user = null }) {
               ))}
             </div>
 
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row gap-2">
               <textarea
                 rows={1}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={msg}
                 onChange={e => setMsg(e.target.value)}
                 onKeyDown={onEnter}
                 placeholder="Ask about diet..."
               />
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 disabled:opacity-50"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50 min-h-[44px] w-full sm:w-auto"
                 onClick={send}
                 disabled={loading}
               >

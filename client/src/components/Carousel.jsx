@@ -67,7 +67,7 @@ export default function Carousel({ interval = 5000 }) {
 
   return (
     <div
-      className="w-full h-screen overflow-hidden bg-black relative"
+      className="w-full overflow-hidden bg-black relative rounded-[24px] aspect-[3/2] sm:aspect-[5/3] md:aspect-[5/4] lg:aspect-video"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -75,13 +75,13 @@ export default function Carousel({ interval = 5000 }) {
       {IMAGES.map((src, i) => (
         <section
           key={src}
-          className={`${i === index ? "block" : "hidden"} w-full h-screen`}
+          className={`${i === index ? "block" : "hidden"} absolute inset-0 w-full h-full`}
         >
-          <div className="h-full overflow-y-auto flex items-start justify-center">
+          <div className="h-full w-full flex items-center justify-center">
             <img
               src={src}
               alt={`slide-${i}`}
-              className="w-full h-auto object-contain carousel-image"
+              className="w-full h-full object-cover carousel-image"
               draggable={false}
             />
           </div>
@@ -91,7 +91,7 @@ export default function Carousel({ interval = 5000 }) {
       <button
         aria-label="Previous"
         onClick={goPrev}
-        className="fixed left-4 top-1/2 -translate-y-1/2 z-20 rounded-full bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 md:p-4 text-lg sm:text-2xl md:text-3xl w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 rounded-full bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 md:p-4 text-lg sm:text-2xl md:text-3xl w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center"
       >
         ‹
       </button>
@@ -99,23 +99,10 @@ export default function Carousel({ interval = 5000 }) {
       <button
         aria-label="Next"
         onClick={goNext}
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-20 rounded-full bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 md:p-4 text-lg sm:text-2xl md:text-3xl w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 rounded-full bg-black/40 hover:bg-black/60 text-white p-2 sm:p-3 md:p-4 text-lg sm:text-2xl md:text-3xl w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center"
       >
         ›
       </button>
-
-      <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 flex gap-3">
-        {IMAGES.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Go to slide ${i + 1}`}
-            onClick={() => setIndex(i)}
-            className={`h-3 w-3 sm:h-3 sm:w-3 rounded-full transition-colors duration-200 ${
-              i === index ? "bg-white shadow-lg" : "bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
     </div>
   );
 }

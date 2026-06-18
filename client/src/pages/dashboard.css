@@ -202,7 +202,7 @@
 /* Responsive adjustments for small screens */
 @media (max-width: 640px) {
   .hero-profile-card {
-    min-height: auto;
+    max-width: 100%;
   }
   .hero-profile-image {
     width: 160px;
@@ -211,6 +211,10 @@
   }
   .dashboard-wave { width: 260px; height: 260px; left: 0; top: 18%; }
   .dashboard-circle.circle-1, .dashboard-circle.circle-2, .dashboard-circle.circle-3 { opacity: 0.08; }
+}
+
+.dashboard-navbar {
+  padding: 1.25rem 1.25rem;
 }
 
 .hero-profile-icon {
@@ -227,6 +231,43 @@
   font-size: 1rem;
   opacity: 0.65;
   color: rgba(20, 83, 45, 0.85);
+}
+
+@media (max-width: 640px) {
+  .dashboard-navbar {
+    padding: 1rem 0.75rem;
+  }
+  .hero-profile-card {
+    max-width: 100%;
+    aspect-ratio: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-profile-image {
+    width: 160px;
+    height: 160px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  }
+  .recommendation-card {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: -42px;
+    transform: translateX(-50%);
+    width: min(100%, 320px);
+    max-width: calc(100% - 2rem);
+  }
+  .hero-profile-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 0.85rem;
+  }
+  .dashboard-decorations {
+    display: none;
+  }
+  .dashboard-page {
+    overflow-x: hidden;
+  }
 }
 
 .hero-profile-icon:hover {

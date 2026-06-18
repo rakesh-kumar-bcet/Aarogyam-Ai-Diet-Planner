@@ -19,21 +19,37 @@ export default function LandingPage() {
   }, [navigate]);
 
   return (
-    <div className="w-full min-h-screen relative">
-      <div className="fixed top-6 left-6 z-50 rounded-full border-2 border-white/70 w-32 h-32 overflow-hidden shadow-lg">
-        <Logo showText={false} iconClassName="h-full w-full object-cover" />
+    <div className="landing-page">
+      <div className="landing-accents">
+        <div className="landing-accent landing-accent-fruit" />
+        <div className="landing-accent landing-accent-dumbbell" />
+        <div className="landing-accent landing-accent-salad" />
       </div>
 
-      <Carousel interval={5000} />
-
-      <div className="fixed left-1/2 -translate-x-1/2 bottom-4 sm:bottom-6 md:bottom-8 z-50 pointer-events-auto">
-        <button
-          onClick={() => navigate("/auth-entry")}
-          className="px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-base sm:text-lg font-bold rounded-full hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-2xl hover:shadow-black/30 transform hover:-translate-y-0.5"
-        >
-          Get Started
-        </button>
+      <div className="landing-logo">
+        <Logo showText={false} iconClassName="h-full w-full object-contain" />
       </div>
+
+      <main className="landing-main">
+        <section className="landing-visual">
+          <Carousel interval={4000} />
+        </section>
+
+        <section className="landing-copy landing-copy-right">
+          <span className="landing-badge">AI Diet Planner</span>
+          <h1>Personalized nutrition plans tailored to your goals.</h1>
+          <p>
+            Get a tailored diet plan fast with a mobile-friendly experience that feels
+            native on every device.
+          </p>
+          <button
+            onClick={() => navigate("/auth-entry")}
+            className="landing-cta"
+          >
+            Get Started
+          </button>
+        </section>
+      </main>
     </div>
   );
 }

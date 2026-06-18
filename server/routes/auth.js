@@ -37,12 +37,33 @@ router.post("/register", async (req, res) => {
     const user = await User.create({ name, email, password: hashed, role: userRole });
 
     // include role so that protected middleware can verify
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+    let token;
+    try {
+      token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+    } catch (tokenError) {
+      console.error("Token generation failed after user creation:", tokenError);
+      await User.findByIdAndDelete(user._id).catch((cleanupError) => {
+        console.error("Failed to cleanup user after token generation failure:", cleanupError);
+      });
+      return res.status(500).json({
+        message: "Registration failed while generating authentication token. Please try again.",
+        error: tokenError.message,
+      });
+    }
 
     res.json({ token, userId: user._id, name: user.name, role: user.role });
   } catch (err) {
     console.error("Register error:", err);
-    res.status(500).json({ message: "Server error" });
+    if (err.code === 11000) {
+      return res.status(400).json({ message: "Email already used" });
+    }
+    if (err.name === "ValidationError") {
+      return res.status(400).json({ message: err.message });
+    }
+    res.status(500).json({
+      message: err.message || "Server error",
+      stack: err.stack,
+    });
   }
 });
 
@@ -104,7 +125,10 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.error("Login error:", error);
-    res.status(500).json({ message: "Login failed" });
+    res.status(500).json({
+      message: error.message || "Login failed",
+      stack: error.stack,
+    });
   }
 });
 

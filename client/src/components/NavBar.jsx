@@ -117,7 +117,7 @@ export default function NavBar() {
   return (
     <>
       <nav className="bg-white/10 backdrop-blur-md border border-white/10 text-slate-900 p-4 rounded-2xl">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+        <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4 w-full">
           <div className="flex items-center gap-4">
             <Link to="/" className="flex items-center gap-3">
               <Logo showText={false} iconClassName="h-14 w-14" />
@@ -151,7 +151,7 @@ export default function NavBar() {
           </button>
 
           <div
-            className={`space-x-4 ${menuOpen ? "block" : "hidden"} md:flex md:items-center md:space-x-4`}
+            className={`space-y-2 ${menuOpen ? "block" : "hidden"} md:flex md:items-center md:space-x-4 md:space-y-0 w-full md:w-auto`}
           >
             {!token ? (
               <>
@@ -221,7 +221,7 @@ export default function NavBar() {
                   <button
                     onMouseDown={(e) => { e.stopPropagation(); setProfileOpen((s) => !s); }}
                     onClick={(e) => e.preventDefault()}
-                    className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition rounded-full"
+                    className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition rounded-full px-3 py-2"
                     aria-expanded={profileOpen}
                   >
                     <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 text-base">
@@ -249,7 +249,7 @@ export default function NavBar() {
         </div>
       </nav>
       {toast.visible && (
-        <div className="fixed right-4 top-24 z-50 max-w-sm rounded-2xl border border-slate-200 bg-slate-950/95 px-4 py-3 text-white shadow-2xl backdrop-blur-xl transition-all duration-300">
+        <div className="fixed inset-x-2 top-24 z-50 mx-auto max-w-sm rounded-2xl border border-slate-200 bg-slate-950/95 px-4 py-3 text-white shadow-2xl backdrop-blur-xl transition-all duration-300">
           <p className="text-sm font-medium">{toast.message}</p>
         </div>
       )}

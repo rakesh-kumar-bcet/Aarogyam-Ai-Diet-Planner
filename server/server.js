@@ -5,15 +5,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-let MongoMemoryServer;
-try {
-  MongoMemoryServer = require("mongodb-memory-server").MongoMemoryServer;
-} catch (e) {
-  MongoMemoryServer = null;
-  console.warn("⚠️ mongodb-memory-server is not available:", e.message);
-}
-
 const { initWebSocket } = require("./websocket");
+
+const requiredEnv = ["MONGO_URI", "JWT_SECRET"];
+requiredEnv.forEach((name) => {
+  if (!process.env[name]) {
+    console.error(`❌ Missing required environment variable: ${name}`);
+    process.exit(1);
+  }
+});
 
 // Routes
 const authRoutes = require("./routes/auth");
@@ -47,54 +47,27 @@ app.use("/api/nutrenist", nutrenistRoutes); // renamed endpoint
 app.use("/api/admin", adminRoutes);
 app.use("/api/feedback", feedbackRoutes);
 
+// Global error handler for unexpected internal failures
+app.use((err, req, res, next) => {
+  console.error("Unhandled server error:", err);
+  res.status(500).json({
+    message: err.message || "Server error",
+    stack: err.stack,
+  });
+});
+
 // MongoDB Connection
 const connectMongo = async () => {
-  const explicitUri = process.env.MONGO_URI?.trim();
-  const localUri = process.env.MONGO_URI_LOCAL?.trim() || "mongodb://127.0.0.1:27017/ai_diet_planner";
-  const connectOptions = {
-    dbName: "ai_diet_planner",
-  };
-
-  const tryConnect = async (uri, label) => {
-    await mongoose.connect(uri, connectOptions);
-    console.log(`✅ MongoDB connected (${label}):`, uri);
-  };
-
-  if (explicitUri) {
-    try {
-      await tryConnect(explicitUri, "MONGO_URI");
-      return;
-    } catch (err) {
-      console.error("❌ MongoDB connection error for MONGO_URI:", err.message || err);
-    }
-  } else {
-    console.log("ℹ️ No MONGO_URI configured, trying local MongoDB...");
-  }
+  const uri = process.env.MONGO_URI.trim();
+  const connectOptions = { dbName: "ai_diet_planner" };
 
   try {
-    await tryConnect(localUri, "local MongoDB");
-    return;
-  } catch (localErr) {
-    console.error("❌ Local MongoDB connection failed:", localErr.message || localErr);
+    await mongoose.connect(uri, connectOptions);
+    console.log(`✅ MongoDB connected (MONGO_URI):`, uri);
+  } catch (err) {
+    console.error("❌ MongoDB connection error for MONGO_URI:", err.message || err);
+    process.exit(1);
   }
-
-  if (process.env.NODE_ENV !== "production" && MongoMemoryServer && process.env.ALLOW_MEMORY_FALLBACK === "true") {
-    try {
-      console.log("ℹ️ Falling back to in-memory MongoDB for development...");
-      const mongoServer = await MongoMemoryServer.create();
-      await mongoose.connect(mongoServer.getUri(), { dbName: "ai_diet_planner" });
-      console.log("✅ Connected to in-memory MongoDB for development");
-      return;
-    } catch (memoryError) {
-      console.error("❌ In-memory MongoDB startup failed:", memoryError);
-    }
-  }
-
-  console.error(
-    "❌ Unable to connect to any MongoDB instance. To persist users, start local MongoDB or set a valid MONGO_URI in server/.env.\n" +
-    "If you want temporary in-memory fallback during development, set ALLOW_MEMORY_FALLBACK=true."
-  );
-  process.exit(1);
 };
 
 // Start server

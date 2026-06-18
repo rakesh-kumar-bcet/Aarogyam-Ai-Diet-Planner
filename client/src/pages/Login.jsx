@@ -10,6 +10,16 @@ export default function Login() {
 
   const submit = async (e) => {
     e.preventDefault();
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("name");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("email");
+    localStorage.removeItem("weight");
+    localStorage.removeItem("weightProvided");
+
     try {
       const res = await loginUser({ ...form, role: selectedRole });
       localStorage.setItem("token", res.token);
@@ -32,6 +42,14 @@ export default function Login() {
       navigate(res.user.role === "nutrenist" ? "/nutrenist" : "/dashboard");
     } catch (err) {
       console.error(err);
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("name");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("email");
+      localStorage.removeItem("weight");
+      localStorage.removeItem("weightProvided");
       setMsg(err.response?.data?.message || "Login failed. Please check your email and password.");
     }
   };
