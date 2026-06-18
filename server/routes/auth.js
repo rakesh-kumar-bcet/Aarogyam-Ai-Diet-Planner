@@ -7,6 +7,15 @@ const LoginLog = require("../models/LoginLog");
 
 const router = express.Router();
 
+const cleanupCreatedUser = async (userId) => {
+  try {
+    await User.findByIdAndDelete(userId);
+    console.log("Cleaned up partially created user:", userId);
+  } catch (cleanupError) {
+    console.error("Failed to cleanup partially created user:", cleanupError);
+  }
+};
+
 // REGISTER
 router.post("/register", async (req, res) => {
   console.log("REQ.BODY:", req.body); // Debug
@@ -34,24 +43,26 @@ router.post("/register", async (req, res) => {
     }
 
     const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashed, role: userRole });
+    const user = new User({ name, email, password: hashed, role: userRole });
+    await user.save();
 
     // include role so that protected middleware can verify
     let token;
     try {
-      token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+      token = jwt.sign(
+        { id: user._id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRE || "7d" },
+      );
     } catch (tokenError) {
       console.error("Token generation failed after user creation:", tokenError);
-      await User.findByIdAndDelete(user._id).catch((cleanupError) => {
-        console.error("Failed to cleanup user after token generation failure:", cleanupError);
-      });
+      await cleanupCreatedUser(user._id);
       return res.status(500).json({
         message: "Registration failed while generating authentication token. Please try again.",
-        error: tokenError.message,
       });
     }
 
-    res.json({ token, userId: user._id, name: user.name, role: user.role });
+    res.status(201).json({ token, userId: user._id, name: user.name, role: user.role });
   } catch (err) {
     console.error("Register error:", err);
     if (err.code === 11000) {
@@ -109,7 +120,13 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || "1d" });
+    let token;
+    try {
+      token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || "1d" });
+    } catch (tokenError) {
+      console.error("Login token generation failed:", tokenError);
+      return res.status(500).json({ message: "Login failed due to server configuration. Please contact support." });
+    }
 
     // Log login
     await LoginLog.create({
@@ -170,7 +187,13 @@ router.post("/admin-login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Invalid admin credentials" });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || "1d" });
+    let token;
+    try {
+      token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || "1d" });
+    } catch (tokenError) {
+      console.error("Admin login token generation failed:", tokenError);
+      return res.status(500).json({ message: "Admin login failed due to server configuration." });
+    }
 
     await LoginLog.create({
       userId: user._id,
