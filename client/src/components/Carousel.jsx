@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 const IMAGES = [
   "/assets/landing-hero.jpeg",
-  "/assets/x.jpeg",
-  "/assets/y.jpeg",
-  "/assets/z.jpeg",
+  "/assets/x.jpg",
+  "/assets/y.jpg",
+  "/assets/z.jpg",
   "/assets/landing-hero4.jpeg",
 ];
 
