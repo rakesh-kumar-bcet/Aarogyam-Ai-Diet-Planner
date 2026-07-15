@@ -5,7 +5,7 @@ const IMAGES = [
   "/assets/x.jpg",
   "/assets/y.jpg",
   "/assets/landing-hero33.jpg",
-  "/assets/landing-hero44.jpeg",
+  "/assets/landing-hero44.jpg",
 ];
 
 export default function Carousel({ interval = 5000 }) {
