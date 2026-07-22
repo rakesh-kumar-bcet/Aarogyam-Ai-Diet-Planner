@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const IMAGES = [
-  "/assets/landing-heroo.jpeg",
+  "/assets/landing-hero.png",
   "/assets/x.jpg",
   "/assets/y.jpg",
-  "/assets/landing-hero33.jpg",
-  "/assets/q.png",
+  "/assets/landing-hero3.jpg",
+  "/assets/landing-hero4.jpeg",
 ];
 
 export default function Carousel({ interval = 5000 }) {
